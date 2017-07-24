@@ -1,0 +1,2 @@
+# BlitCore
+Core repository
