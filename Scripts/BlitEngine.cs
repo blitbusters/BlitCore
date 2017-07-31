@@ -33,7 +33,7 @@ namespace BlitCore
 		/// <summary>
 		/// The aspect style.
 		/// </summary>
-		public AspectStyle aspectStype;
+		public AspectStyle aspectStyle;
 
 		/// <summary>
 		/// The movement style
@@ -83,7 +83,7 @@ namespace BlitCore
 		/// Starts the game manager.
 		/// </summary>
 		void Start () {
-			if (aspectStype == AspectStyle.TopDown) {
+			if (aspectStyle == AspectStyle.TopDown) {
 				// This is top down aspect, make sure that 
 				// y-scale gravity is disabled
 				Physics2D.gravity = new Vector2(0, 0);
