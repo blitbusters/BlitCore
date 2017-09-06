@@ -23,6 +23,12 @@ namespace BlitCore
 	public class SpriteRandomizer : MonoBehaviour 
 	{
 		/// <summary>
+		/// The threshold for when a variation occurs.
+		/// </summary>
+		[Range(0f, 1f)]
+		public float threshold = 1.0f;
+
+		/// <summary>
 		/// The sprites to randomize from;
 		/// </summary>
 		public Sprite[] sprites;
@@ -32,10 +38,12 @@ namespace BlitCore
 		/// </summary>
 		void Start () {
 			if (sprites.Length > 0) {
-				var renderer = GetComponent<SpriteRenderer> ();
+				if (Random.Range (0.0f, 1.0f) <= threshold) {
+					var renderer = GetComponent<SpriteRenderer> ();
 
-				if (renderer != null && sprites.Length > 0)
-					renderer.sprite = sprites[Random.Range (0, sprites.Length)];
+					if (renderer != null && sprites.Length > 0)
+						renderer.sprite = sprites [Random.Range (0, sprites.Length)];
+				}
 			}
 		}
 	}

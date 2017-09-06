@@ -35,7 +35,21 @@ namespace BlitCore
 			} catch { }
 			return null;
 		}
-
+			
+		/// <summary>
+		/// Loads the file at the given path and returns the string data.
+		/// </summary>
+		/// <returns>The string content</returns>
+		/// <param name="path">The file path</param>
+		public static string LoadString (string path) {
+			try {
+				using (var reader = new StreamReader (path)) {
+					return reader.ReadToEnd();
+				}
+			} catch { }
+			return null;
+		}
+			
 		/// <summary>
 		/// Loads the resources at the given path and deserializes
 		/// it into the given type.
