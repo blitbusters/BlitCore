@@ -59,6 +59,8 @@ namespace BlitCore
 		protected override void TriggerAnimation (Direction dir) { 
 			if (dir != Direction.None) {
 				if (dir != direction || isIdle) {
+					animator.ResetTrigger ("idle");
+
 					if (dir == Direction.Down)
 						animator.SetTrigger (down);
 					else if (dir == Direction.Up)
