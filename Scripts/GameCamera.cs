@@ -17,42 +17,23 @@ namespace BlitCore
 	public class GameCamera : MonoBehaviour 
 	{
 		/// <summary>
-		/// The previous screen height.
+		/// The camera this script is attached to.
 		/// </summary>
-		private float height = 0f;
+		private Camera cam;
 
 		/// <summary>
-		/// The optional pixels per unit. If this isn't set the
-		/// setting from the GameManager will be used.
+		/// Starts the component.
 		/// </summary>
-		public int pixelsPerUnit;
-
-		/// <summary>
-		/// The target height in pixels.
-		/// </summary>
-		public int targetHeight;
-
-		/// <summary>
-		/// The current screen setup.
-		/// </summary>
-		public ScreenSetup screen;
+		protected virtual void Start() {
+			cam = GetComponent<Camera> ();
+		}
 
 		/// <summary>
 		/// Checks if any screen properties as been changed since the last update.
 		/// </summary>
 		protected virtual void FixedUpdate () {
-			if (Screen.height != height) {
-				var mgr = BlitEngine.Instance;
-				var pix = pixelsPerUnit > 0 ? pixelsPerUnit : mgr.pixelsPerUnit;
-
-				if (targetHeight != 0 && mgr.pixelsPerUnit != 0) {
-					height = Screen.height;
-					screen = ScreenSetup.Get (Screen.width, Screen.height, targetHeight, pix);
-
-					mgr.Zoom = screen.zoom;
-
-					Camera.main.orthographicSize = screen.zoomedCameraHeight;
-				}                  
+			if (BlitEngine.Instance.screen != null) {
+				cam.orthographicSize = BlitEngine.Instance.screen.zoomedCameraHeight;
 			}
 		}
 

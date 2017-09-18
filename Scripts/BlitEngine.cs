@@ -26,14 +26,29 @@ namespace BlitCore
 		private int zoom = 1;
 
 		/// <summary>
+		/// The previous screen height.
+		/// </summary>
+		private float height = 0f;
+
+		/// <summary>
 		/// The pixel per unit resolution for the game.
 		/// </summary>
 		public int pixelsPerUnit;
 
 		/// <summary>
+		/// The target height in pixels.
+		/// </summary>
+		public int targetHeight;
+
+		/// <summary>
 		/// The aspect style.
 		/// </summary>
 		public AspectStyle aspectStyle;
+
+		/// <summary>
+		/// The current screen setup.
+		/// </summary>
+		public ScreenSetup screen;
 
 		/// <summary>
 		/// The movement style
@@ -93,6 +108,23 @@ namespace BlitCore
 			var startup = GetComponent<IStartup> ();
 			if (startup != null)
 				startup.Init ();
+		}
+
+		/// <summary>
+		/// Checks if any screen properties as been changed since the last update.
+		/// </summary>
+		void Update () {
+			if (Screen.height != height) {
+				var mgr = BlitEngine.Instance;
+				var pix = pixelsPerUnit > 0 ? pixelsPerUnit : mgr.pixelsPerUnit;
+
+				if (targetHeight != 0 && mgr.pixelsPerUnit != 0) {
+					height = Screen.height;
+					screen = ScreenSetup.Get (Screen.width, Screen.height, targetHeight, pix);
+
+					mgr.Zoom = screen.zoom;
+				}                  
+			}
 		}
 	}
 }
