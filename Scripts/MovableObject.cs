@@ -16,10 +16,13 @@ namespace BlitCore
 	/// <summary>
 	/// Base class for all movable objects.
 	/// </summary>
+	[ExecuteInEditMode]
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class MovableObject : MonoBehaviour 
 	{
 		public bool simulateZAxis = true;
+
+		public int zAxisOffset = 0;
 
 		/// <summary>
 		/// The sprite renderer.
@@ -39,7 +42,7 @@ namespace BlitCore
 		/// </summary>
 		protected virtual void LateUpdate () { 
 			if (simulateZAxis)
-				spriteRenderer.sortingOrder = 1000 - (int)Mathf.Round (transform.position.y * 10);
+				spriteRenderer.sortingOrder = 1000 - (int)Mathf.Round (transform.position.y * 10) + zAxisOffset;
 		}
 	}
 }
