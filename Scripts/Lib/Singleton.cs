@@ -8,6 +8,9 @@
  * 
  */
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using System.Collections;
 
@@ -39,6 +42,11 @@ namespace BlitCore
 						if (instance == null) {
 							instance = GameObject.FindObjectOfType<T> ();
 
+							#if UNITY_EDITOR
+							if (!EditorApplication.isPlaying)
+								return instance;
+							#endif
+
 							if (instance != null)
 								DontDestroyOnLoad (instance);
 						}
@@ -52,6 +60,11 @@ namespace BlitCore
 		/// Awakes the script.
 		/// </summary>
 		protected virtual void Awake () {
+			#if UNITY_EDITOR
+			if (!EditorApplication.isPlaying)
+				return;
+			#endif
+
 			if (instance == null) {
 				lock (mutex) {
 					if (instance == null) {
