@@ -41,7 +41,7 @@ namespace BlitCore
 		/// to prevent subpixel rendering.
 		/// </summary>
 		protected virtual void LateUpdate () { 
-			if (simulateZAxis)
+			if (simulateZAxis && spriteRenderer != null)
 				spriteRenderer.sortingOrder = 1000 - (int)Mathf.Round (transform.position.y * 10) + zAxisOffset;
 		}
 	}
