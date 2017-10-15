@@ -54,7 +54,6 @@ namespace BlitCore
 			base.Start ();
 
 			rigidBody = GetComponent <Rigidbody2D> ();
-			rigidBody.isKinematic = false;
 		}
 
 		/// <summary>
