@@ -18,7 +18,6 @@ namespace BlitCore
 	/// This is useful when wanting to acheive variety without putting
 	/// this mundane task on the level designer.
 	/// </summary>
-	[ExecuteInEditMode]
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class SpriteRandomizer : MonoBehaviour 
 	{
@@ -29,6 +28,12 @@ namespace BlitCore
 		public float threshold = 1.0f;
 
 		/// <summary>
+		/// If the object should be destroyed if
+		/// the threshold isn't met.
+		/// </summary>
+		public bool noDefault = false;
+
+		/// <summary>
 		/// The sprites to randomize from;
 		/// </summary>
 		public Sprite[] sprites;
@@ -36,13 +41,15 @@ namespace BlitCore
 		/// <summary>
 		/// Starts the behaviour.
 		/// </summary>
-		void Start () {
+		protected virtual void Start () {
 			if (sprites.Length > 0) {
-				if (Random.Range (0.0f, 1.0f) <= threshold) {
+				if (Random.value <= threshold) {
 					var renderer = GetComponent<SpriteRenderer> ();
 
 					if (renderer != null && sprites.Length > 0)
 						renderer.sprite = sprites [Random.Range (0, sprites.Length)];
+				} else if (noDefault) {
+					Destroy (gameObject);
 				}
 			}
 		}
